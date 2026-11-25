@@ -1,1 +1,9 @@
 npx lint-staged
+
+# CL-37: block commits that contain something that looks like a secret.
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "gitleaks is not installed, so the secret check can't run."
+  echo "Install it (Windows: winget install Gitleaks.Gitleaks), open a new terminal, and commit again."
+  exit 1
+fi
+gitleaks git --pre-commit --staged --redact --verbose

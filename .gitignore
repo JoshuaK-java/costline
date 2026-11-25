@@ -22,7 +22,12 @@
 
 # misc
 .DS_Store
+
+# keys and certificates (CL-37)
 *.pem
+*.p8
+*.p12
+*.key
 
 # debug
 npm-debug.log*
@@ -30,8 +35,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files: never commit (CL-37). .env.example holds names only, no values.
+.env
+.env*.local
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +47,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# supabase CLI
+supabase/.temp/
+
+# real data must never be committed (public repo, CL-37).
+# Keep it outside the repo folder, e.g. D:\jkalc\costline-data\
+/private/
+Data Source*.xlsx
+*.xlsx
+*.xls
