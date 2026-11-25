@@ -1,26 +1,208 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Dark mode is a class on <html> (set by next-themes), not a media query. */
+@custom-variant dark (&:is(.dark *));
 
+/*
+ * Theme tokens (CL-40). Components use these names (bg-primary, text-muted-foreground, ...),
+ * never hex values, so light/dark switch in one place. Colors match the Gents Home page.
+ */
 @theme inline {
+  --font-sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-sans);
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", monospace;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-warning: var(--warning);
+  --color-selected: var(--selected);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* charts: generic series + gridlines */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-grid: var(--chart-grid);
+  --color-chart-axis: var(--chart-axis);
+
+  /* build phases, in construction order (bg-phase-land, text-phase-permits, ...) */
+  --color-phase-land: var(--phase-land);
+  --color-phase-permits: var(--phase-permits);
+  --color-phase-site: var(--phase-site);
+  --color-phase-shell: var(--phase-shell);
+  --color-phase-systems: var(--phase-systems);
+  --color-phase-interior: var(--phase-interior);
+  --color-phase-fixtures: var(--phase-fixtures);
+  --color-phase-misc: var(--phase-misc);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+ * Light. Two Gents Home colors are slightly darker so text passes WCAG AA (4.5:1):
+ * primary #0073ea -> #0068d9, muted-foreground #6b7280 -> #646b78.
+ */
+:root {
+  --radius: 0.5rem;
+
+  --background: #f5f6fa;
+  --foreground: #1f2430;
+  --card: #ffffff;
+  --card-foreground: #1f2430;
+  --popover: #ffffff;
+  --popover-foreground: #1f2430;
+  --primary: #0068d9;
+  --primary-foreground: #ffffff;
+  --secondary: #e8f1fd;
+  --secondary-foreground: #1f2430;
+  --muted: #f2f5fb;
+  --muted-foreground: #646b78;
+  --accent: #f2f5fb;
+  --accent-foreground: #1f2430;
+  --destructive: #c8312f;
+  --warning: #a14a00;
+  --selected: #d9e9ff;
+  --border: #e2e5ec;
+  --input: #d5d9e2;
+  --ring: #0068d9;
+
+  --chart-1: #2a78d6;
+  --chart-2: #eb6834;
+  --chart-3: #1baf7a;
+  --chart-4: #eda100;
+  --chart-5: #e87ba4;
+  --chart-grid: #e1e0d9;
+  --chart-axis: #c3c2b7;
+
+  --phase-land: #eb6834;
+  --phase-permits: #1baf7a;
+  --phase-site: #eda100;
+  --phase-shell: #e87ba4;
+  --phase-systems: #008300;
+  --phase-interior: #6250d6;
+  --phase-fixtures: #e34948;
+  --phase-misc: #898781;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1f2430;
+  --sidebar-primary: #0068d9;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e8f1fd;
+  --sidebar-accent-foreground: #1f2430;
+  --sidebar-border: #e2e5ec;
+  --sidebar-ring: #0068d9;
+}
+
+/* Dark */
+.dark {
+  --background: #13151b;
+  --foreground: #e6e8ee;
+  --card: #1b1e26;
+  --card-foreground: #e6e8ee;
+  --popover: #1b1e26;
+  --popover-foreground: #e6e8ee;
+  --primary: #4c9dff;
+  --primary-foreground: #0b1220;
+  --secondary: #1c2a3e;
+  --secondary-foreground: #e6e8ee;
+  --muted: #222633;
+  --muted-foreground: #9aa1ae;
+  --accent: #222633;
+  --accent-foreground: #e6e8ee;
+  --destructive: #e66767;
+  --warning: #f0b35a;
+  --selected: #233650;
+  --border: #2b2f3a;
+  --input: #3a3f4c;
+  --ring: #4c9dff;
+
+  --chart-1: #3987e5;
+  --chart-2: #d95926;
+  --chart-3: #199e70;
+  --chart-4: #c98500;
+  --chart-5: #d55181;
+  --chart-grid: #2c2c2a;
+  --chart-axis: #383835;
+
+  --phase-land: #d95926;
+  --phase-permits: #199e70;
+  --phase-site: #c98500;
+  --phase-shell: #d55181;
+  --phase-systems: #0ca30c;
+  --phase-interior: #9085e9;
+  --phase-fixtures: #e66767;
+  --phase-misc: #898781;
+
+  --sidebar: #1b1e26;
+  --sidebar-foreground: #e6e8ee;
+  --sidebar-primary: #4c9dff;
+  --sidebar-primary-foreground: #0b1220;
+  --sidebar-accent: #1c2a3e;
+  --sidebar-accent-foreground: #e6e8ee;
+  --sidebar-border: #2b2f3a;
+  --sidebar-ring: #4c9dff;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/*
+ * iPhone/iPad: text fields under 16px make Safari zoom in on focus. shadcn inputs drop to 14px
+ * from 768px wide (md:text-sm), which still includes iPads, so force 16px on touch screens.
+ * Unlayered on purpose: it beats Tailwind's utility classes without !important.
+ */
+@media (pointer: coarse) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
 }
