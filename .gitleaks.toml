@@ -1,0 +1,19 @@
+# gitleaks config (CL-37). Used by the pre-commit hook and the secret-scan workflow.
+# Keeps all of gitleaks' built-in rules and adds rules for keys this project uses.
+
+title = "CostLine gitleaks config"
+
+[extend]
+useDefault = true
+
+# Supabase secret key (replaces the legacy service_role key). Server only, never commit.
+[[rules]]
+id = "supabase-secret-key"
+description = "Supabase secret key (sb_secret_...)"
+regex = '''\bsb_secret_[A-Za-z0-9_-]{16,}'''
+keywords = ["sb_secret_"]
+
+# Legacy Supabase service_role / anon JWTs are covered by the default "jwt" rule.
+
+# Apple private keys (.p8, e.g. Sign in with Apple / APNs) are PEM blocks,
+# covered by the default "private-key" rule.
