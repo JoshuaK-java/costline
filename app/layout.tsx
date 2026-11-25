@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CostLine",
+  title: { default: "CostLine", template: "%s · CostLine" },
   description: "Track construction spending: receipts, phases, categories and vendors.",
 };
 
