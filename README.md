@@ -1,5 +1,21 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Prerequisites
+
+- Node.js 26 and npm
+- [gitleaks](https://github.com/gitleaks/gitleaks) (secret scanner, used by the pre-commit hook; commits are blocked without it)
+  - Windows: `winget install Gitleaks.Gitleaks`
+  - macOS: `brew install gitleaks`
+  - Then open a new terminal and check: `gitleaks version`
+
+## Setup
+
+1. Clone the repo.
+2. Run `npm install` (this also sets up the pre-commit hooks).
+3. Run `npm run dev`.
+
+Never commit secrets or real data. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Getting Started
 
 First, run the development server:
