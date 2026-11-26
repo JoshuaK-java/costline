@@ -31,6 +31,8 @@ npx supabase status    # show URLs/keys again
 npx supabase db reset  # wipe + re-run migrations + seed
 ```
 
+`npx supabase db reset` = fresh local DB with sample data (from `supabase/seed.sql`; made-up data only).
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
