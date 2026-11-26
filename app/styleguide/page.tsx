@@ -28,7 +28,7 @@ import { DialogDemo, ToastDemo } from "./demos";
 // All data on this page is made up.
 
 export const metadata: Metadata = {
-  title: "Styleguide · CostLine",
+  title: "Styleguide",
   robots: { index: false, follow: false },
 };
 
