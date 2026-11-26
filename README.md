@@ -20,6 +20,17 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Local Supabase
+
+Needs Docker Desktop running. Commands (run in the repo folder):
+
+```bash
+npx supabase start     # start
+npx supabase stop      # stop (keeps data)
+npx supabase status    # show URLs/keys again
+npx supabase db reset  # wipe + re-run migrations + seed
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
