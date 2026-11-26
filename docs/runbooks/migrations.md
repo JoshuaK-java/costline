@@ -29,7 +29,7 @@ Turn the difference into a migration file, check it, and commit it:
 
 ```bash
 npx supabase db diff -f fix_name            # change made in local Studio
-npx supabase db diff --linked -f fix_name   # change made on the hosted dev project
+npx supabase db diff --remote -f fix_name   # change made on the hosted dev project
 ```
 
-Without `--linked`, `db diff` compares the **local** database with the migrations, so it won't see a change made on the hosted project.
+Without `--remote`, `db diff` compares the **local** database with the migrations, so it won't see a change made on the hosted project.
