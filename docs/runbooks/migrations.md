@@ -16,9 +16,11 @@ A **migration** is a SQL file in `supabase/migrations/` that changes the databas
 npx supabase migration new <name>   # creates supabase/migrations/<timestamp>_<name>.sql
 # write the SQL in that file
 npx supabase db reset               # rebuild the local DB from all migrations + seed
-npx supabase db push                # apply new migrations to the linked dev project
+npx supabase db push --remote       # apply new migrations to the linked dev project
+npx supabase migration list --remote  # check which migrations dev has
 ```
 
+- Supabase CLI 3.x targets the **local** database by default. Without `--remote`, `db push` and `migration list` never touch dev.
 - `db reset` **deletes all local data**. That's intended; seed data refills it.
 - Migrations run in filename (timestamp) order.
 - `db push` lists the migrations it will run and asks for confirmation.
@@ -29,7 +31,7 @@ Turn the difference into a migration file, check it, and commit it:
 
 ```bash
 npx supabase db diff -f fix_name            # change made in local Studio
-npx supabase db diff --linked -f fix_name   # change made on the hosted dev project
+npx supabase db diff --remote -f fix_name   # change made on the hosted dev project
 ```
 
-Without `--linked`, `db diff` compares the **local** database with the migrations, so it won't see a change made on the hosted project.
+Without `--remote`, `db diff` compares the **local** database with the migrations, so it won't see a change made on the hosted project.
