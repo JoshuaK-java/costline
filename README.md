@@ -33,6 +33,17 @@ npx supabase db reset  # wipe + re-run migrations + seed
 
 `npx supabase db reset` = fresh local DB with sample data (from `supabase/seed.sql`; made-up data only).
 
+## Environment variables
+
+Copy `.env.example` to `.env.local` and fill in the values. `.env.local` is git-ignored; never commit it.
+
+Rules:
+
+- `NEXT_PUBLIC_…` variables are **visible in the browser**. Only put non-secret values there.
+- Everything else is **server-only**.
+- Real values live in: `.env.local` (your PC), Vercel (CL-59), GitHub Actions secrets (CL-60), and the vault (CL-58).
+- When you add a new variable, add it to `.env.example`, the env validation (CL-61), Vercel and the vault, **all in the same PR**.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
