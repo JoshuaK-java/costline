@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 import type { Database } from "@/lib/database.types";
+import { env } from "@/lib/env";
 
 /**
  * Refreshes the Supabase session on every request (called from `proxy.ts`). Server Components
@@ -16,8 +17,8 @@ export async function updateSession(request: NextRequest) {
 
   // A new client per request; never keep it in a module variable.
   const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
     {
       cookies: {
         getAll() {

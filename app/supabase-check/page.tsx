@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
+import { env } from "@/lib/env";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -24,13 +25,13 @@ export default function SupabaseCheckPage() {
 }
 
 async function Status() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+  const url = env.NEXT_PUBLIC_SUPABASE_URL;
 
   // 1. Is the Supabase API reachable with our publishable key?
   let reachable = false;
   try {
     const res = await fetch(`${url}/auth/v1/health`, {
-      headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY! },
+      headers: { apikey: env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY },
       cache: "no-store",
     });
     reachable = res.ok;
